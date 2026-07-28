@@ -158,7 +158,7 @@ This project is being built step by step to learn:
 - ✅ Git & GitHub
 - ✅ Terraform setup
 - ✅ Azure Resource Group created with Terraform
-- ⏳ Azure Container Registry (ACR)
+- ✅ Azure Container Registry (ACR)
 - ⏳ Azure Kubernetes Service (AKS)
 - ⏳ GitHub Actions CI/CD Pipeline
 - ⏳ Deploy application to AKS
