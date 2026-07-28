@@ -1,16 +1,20 @@
 # Hello AKS App 🚀
 
-A simple Flask application used to learn and demonstrate a complete DevOps deployment pipeline using Docker, Terraform, GitHub Actions, and Azure Kubernetes Service (AKS).
+A simple Flask application built to learn and demonstrate a complete DevOps deployment pipeline using Docker, Terraform, GitHub Actions, and Azure Kubernetes Service (AKS).
+
+---
 
 ## 📖 Project Overview
 
-This project is part of my DevOps learning journey. The application itself is intentionally simple so I can focus on understanding the deployment process and cloud infrastructure.
+This project is part of my DevOps learning journey. The application itself is intentionally simple so I can focus on understanding cloud infrastructure, containerization, Infrastructure as Code (IaC), Kubernetes, and CI/CD.
 
 The application currently displays:
 
-```
+```text
 Hello from Azure Kubernetes!
 ```
+
+---
 
 ## 🛠️ Tech Stack
 
@@ -19,22 +23,35 @@ Hello from Azure Kubernetes!
 - Docker
 - Git
 - GitHub
-- GitHub Actions (Coming Soon)
-- Terraform (Coming Soon)
-- Azure Container Registry (ACR) (Coming Soon)
-- Azure Kubernetes Service (AKS) (Coming Soon)
+- Terraform
+- Azure CLI
+- Azure Resource Manager (ARM)
+- Azure Container Registry (ACR) *(Coming Soon)*
+- Azure Kubernetes Service (AKS) *(Coming Soon)*
+- GitHub Actions *(Coming Soon)*
+
+---
 
 ## 📂 Project Structure
 
-```
+```text
 hello-aks-app/
 │
 ├── app.py
 ├── Dockerfile
 ├── requirements.txt
+├── README.md
 ├── .gitignore
-└── README.md
+│
+└── terraform/
+    ├── provider.tf
+    ├── variables.tf
+    ├── main.tf
+    ├── outputs.tf
+    └── .terraform.lock.hcl
 ```
+
+---
 
 ## 🚀 Running the Application Locally
 
@@ -47,10 +64,15 @@ cd hello-aks-app
 
 ### 2. Create a virtual environment
 
+```bash
+python -m venv venv
+```
+
+Activate the environment:
+
 **Windows**
 
 ```bash
-python -m venv venv
 venv\Scripts\activate
 ```
 
@@ -66,9 +88,9 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Open your browser and visit:
+Open:
 
-```
+```text
 http://localhost:5000
 ```
 
@@ -82,7 +104,7 @@ http://localhost:5000
 docker build -t hello-aks-app:v1 .
 ```
 
-### Run the Docker container
+### Run the container
 
 ```bash
 docker run -d -p 5000:5000 --name hello-aks-container hello-aks-app:v1
@@ -90,8 +112,26 @@ docker run -d -p 5000:5000 --name hello-aks-container hello-aks-app:v1
 
 Open:
 
-```
+```text
 http://localhost:5000
+```
+
+---
+
+## ☁️ Infrastructure as Code (Terraform)
+
+The Azure infrastructure for this project is managed using Terraform.
+
+### Current Infrastructure
+
+- ✅ Azure Resource Group
+
+### Terraform Workflow
+
+```bash
+terraform init
+terraform plan
+terraform apply
 ```
 
 ---
@@ -102,9 +142,10 @@ This project is being built step by step to learn:
 
 - Docker
 - Git & GitHub
-- Azure
 - Terraform
-- Kubernetes (AKS)
+- Azure
+- Infrastructure as Code (IaC)
+- Azure Kubernetes Service (AKS)
 - GitHub Actions
 - CI/CD Pipelines
 
@@ -114,11 +155,42 @@ This project is being built step by step to learn:
 
 - ✅ Flask application
 - ✅ Dockerized application
-- ✅ GitHub repository
-- ⏳ Azure Infrastructure (Terraform)
+- ✅ Git & GitHub
+- ✅ Terraform setup
+- ✅ Azure Resource Group created with Terraform
 - ⏳ Azure Container Registry (ACR)
 - ⏳ Azure Kubernetes Service (AKS)
 - ⏳ GitHub Actions CI/CD Pipeline
+- ⏳ Deploy application to AKS
+
+---
+
+## 🗺️ Project Roadmap
+
+```
+Flask Application
+        │
+        ▼
+Dockerize Application
+        │
+        ▼
+Push Code to GitHub
+        │
+        ▼
+Create Azure Resource Group (Terraform) ✅
+        │
+        ▼
+Create Azure Container Registry (ACR)
+        │
+        ▼
+Create Azure Kubernetes Service (AKS)
+        │
+        ▼
+Deploy Docker Image
+        │
+        ▼
+Automate Deployment with GitHub Actions
+```
 
 ---
 
@@ -126,4 +198,4 @@ This project is being built step by step to learn:
 
 **Farooq**
 
-This repository is part of my DevOps learning journey and will continue to evolve as I learn new technologies.
+This repository documents my DevOps learning journey. The project will continue to evolve as I learn Docker, Terraform, Azure, Kubernetes, and CI/CD by building and deploying a real application step by step.
