@@ -1,3 +1,13 @@
+# Python
 venv/
 __pycache__/
 *.pyc
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
+# VS Code
+.vscode/
