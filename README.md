@@ -1,16 +1,16 @@
 # Hello AKS App 🚀
 
-A simple Flask application built to learn and demonstrate a complete DevOps deployment pipeline using Docker, Terraform, GitHub Actions, and Azure Kubernetes Service (AKS).
+A simple Flask application built to learn a complete DevOps deployment pipeline using Docker, Terraform, Azure Container Registry (ACR), Azure Kubernetes Service (AKS), and GitHub Actions.
 
 ---
 
 ## 📖 Project Overview
 
-This project is part of my DevOps learning journey. The application itself is intentionally simple so I can focus on understanding cloud infrastructure, containerization, Infrastructure as Code (IaC), Kubernetes, and CI/CD.
+This project is part of my DevOps learning journey. The application is intentionally simple so the focus remains on learning cloud infrastructure, containerization, Kubernetes, Infrastructure as Code (Terraform), and CI/CD.
 
-The application currently displays:
+Current application output:
 
-```text
+```
 Hello from Azure Kubernetes!
 ```
 
@@ -24,111 +24,106 @@ Hello from Azure Kubernetes!
 - Git
 - GitHub
 - Terraform
-- Azure CLI
-- Azure Resource Manager (ARM)
-- Azure Container Registry (ACR) *(Coming Soon)*
-- Azure Kubernetes Service (AKS) *(Coming Soon)*
-- GitHub Actions *(Coming Soon)*
+- Microsoft Azure
+- Azure Container Registry (ACR)
+- Azure Kubernetes Service (AKS)
+- GitHub Actions (Coming Soon)
 
 ---
 
 ## 📂 Project Structure
 
-```text
+```
 hello-aks-app/
 │
 ├── app.py
 ├── Dockerfile
 ├── requirements.txt
-├── README.md
+├── terraform/
+│   ├── provider.tf
+│   ├── variables.tf
+│   ├── main.tf
+│   ├── acr.tf
+│   ├── aks.tf
+│   └── outputs.tf
 ├── .gitignore
-│
-└── terraform/
-    ├── provider.tf
-    ├── variables.tf
-    ├── main.tf
-    ├── outputs.tf
-    └── .terraform.lock.hcl
+└── README.md
 ```
 
 ---
 
-## 🚀 Running the Application Locally
+## 🚀 Running Locally
 
-### 1. Clone the repository
+### Clone the repository
 
 ```bash
 git clone https://github.com/farooqspecials/hello-aks-app.git
 cd hello-aks-app
 ```
 
-### 2. Create a virtual environment
+### Create a virtual environment
 
 ```bash
 python -m venv venv
 ```
 
-Activate the environment:
-
-**Windows**
+Windows:
 
 ```bash
 venv\Scripts\activate
 ```
 
-### 3. Install dependencies
+### Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Run the application
+### Run the application
 
 ```bash
 python app.py
 ```
 
-Open:
+Visit:
 
-```text
+```
 http://localhost:5000
 ```
 
 ---
 
-## 🐳 Running with Docker
+## 🐳 Docker
 
-### Build the Docker image
+Build the image
 
 ```bash
 docker build -t hello-aks-app:v1 .
 ```
 
-### Run the container
+Run the container
 
 ```bash
-docker run -d -p 5000:5000 --name hello-aks-container hello-aks-app:v1
-```
-
-Open:
-
-```text
-http://localhost:5000
+docker run -d -p 5000:5000 hello-aks-app:v1
 ```
 
 ---
 
-## ☁️ Infrastructure as Code (Terraform)
+## ☁️ Azure Infrastructure
 
-The Azure infrastructure for this project is managed using Terraform.
+The infrastructure is provisioned using Terraform.
 
-### Current Infrastructure
+Current Azure resources:
 
-- ✅ Azure Resource Group
+- Azure Resource Group
+- Azure Container Registry (ACR)
+- Azure Kubernetes Service (AKS)
 
-### Terraform Workflow
+Provision infrastructure:
 
 ```bash
+cd terraform
+
 terraform init
 terraform plan
 terraform apply
@@ -138,60 +133,41 @@ terraform apply
 
 ## 📚 Learning Objectives
 
-This project is being built step by step to learn:
+This project demonstrates:
 
-- Docker
-- Git & GitHub
-- Terraform
-- Azure
-- Infrastructure as Code (IaC)
+- Docker containerization
+- Infrastructure as Code with Terraform
+- Azure Resource Group provisioning
+- Azure Container Registry
 - Azure Kubernetes Service (AKS)
-- GitHub Actions
-- CI/CD Pipelines
+- Kubernetes fundamentals
+- Git & GitHub
+- CI/CD with GitHub Actions (next phase)
 
 ---
 
-## 📌 Project Status
+## 📌 Current Progress
 
-- ✅ Flask application
-- ✅ Dockerized application
-- ✅ Git & GitHub
-- ✅ Terraform setup
-- ✅ Azure Resource Group created with Terraform
-- ✅ Azure Container Registry (ACR)
-- ✅ Push Docker image to ACR
-- ⏳ Azure Kubernetes Service (AKS)
-- ⏳ GitHub Actions CI/CD Pipeline
-- ⏳ Deploy application to AKS
+- ✅ Flask Application
+- ✅ Dockerized Application
+- ✅ GitHub Repository
+- ✅ Terraform Configuration
+- ✅ Azure Resource Group
+- ✅ Azure Container Registry
+- ✅ Docker Image pushed to ACR
+- ✅ Azure Kubernetes Service (AKS)
+- ⏳ Kubernetes Deployment
+- ⏳ Kubernetes Service
+- ⏳ GitHub Actions CI/CD
 
 ---
 
-## 🗺️ Project Roadmap
+## 🎯 Upcoming Work
 
-```
-Flask Application
-        │
-        ▼
-Dockerize Application
-        │
-        ▼
-Push Code to GitHub
-        │
-        ▼
-Create Azure Resource Group (Terraform) ✅
-        │
-        ▼
-Create Azure Container Registry (ACR)
-        │
-        ▼
-Create Azure Kubernetes Service (AKS)
-        │
-        ▼
-Deploy Docker Image
-        │
-        ▼
-Automate Deployment with GitHub Actions
-```
+- Deploy Flask application to AKS
+- Expose the application using Kubernetes Service
+- Configure GitHub Actions
+- Automate build and deployment pipeline
 
 ---
 
@@ -199,4 +175,4 @@ Automate Deployment with GitHub Actions
 
 **Farooq**
 
-This repository documents my DevOps learning journey. The project will continue to evolve as I learn Docker, Terraform, Azure, Kubernetes, and CI/CD by building and deploying a real application step by step.
+This repository documents my DevOps learning journey as I build a complete cloud-native deployment pipeline using modern DevOps tools and Azure services.
