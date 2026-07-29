@@ -1,4 +1,4 @@
-name: Hello GitHub Actions
+name: Flask CI Pipeline
 
 on:
   push:
@@ -6,15 +6,31 @@ on:
       - master
 
 jobs:
-  hello:
+  build:
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Say Hello
-        run: echo "Hello from GitHub Actions!"
 
-      - name: Show Date
-        run: date
+    - name: Checkout Repository
+      uses: actions/checkout@v4
 
-      - name: Show Current Directory
-        run: pwd
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Verify Flask Application
+      run: |
+        python app.py &
+        sleep 5
+        curl http://localhost:5000
+
+    - name: Build Docker Image
+      run: |
+        docker build -t hello-aks-app:test .
