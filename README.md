@@ -226,6 +226,7 @@ This project demonstrates:
 - Learn GitHub Actions jobs, steps, runners, and secrets
 - Optionally publish Docker images to Docker Hub
 - Complete Azure deployment automation when Microsoft Entra ID permissions are available
+- Last updated: Testing GitHub Actions Docker Hub workflow.
 
 ---
 
