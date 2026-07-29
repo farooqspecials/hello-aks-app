@@ -1,50 +1,54 @@
 # Hello AKS App 🚀
 
-A simple Flask application built to learn a complete DevOps deployment pipeline using Docker, Terraform, Azure Container Registry (ACR), Azure Kubernetes Service (AKS), Kubernetes, and GitHub Actions.
+A simple Flask application built to learn a complete cloud-native DevOps pipeline using Docker, Terraform, Azure Container Registry (ACR), Azure Kubernetes Service (AKS), Kubernetes, and GitHub Actions.
 
 ---
 
-## 📖 Project Overview
+# 📖 Project Overview
 
-This project is part of my DevOps learning journey. The application is intentionally simple so the focus remains on understanding modern DevOps practices, including containerization, Infrastructure as Code (Terraform), Kubernetes, cloud deployment on Microsoft Azure, and CI/CD with GitHub Actions.
+This project is part of my DevOps learning journey. The application is intentionally simple so I can focus on learning modern DevOps tools, Infrastructure as Code (Terraform), containerization, Kubernetes, Microsoft Azure, and CI/CD automation.
 
-The application currently displays:
+Current application output:
 
 ```text
 Hello from Azure Kubernetes!
 ```
 
-The application is successfully deployed and running on **Azure Kubernetes Service (AKS)**.
+The application has been successfully:
+
+- Dockerized
+- Pushed to Docker Hub
+- Pushed to Azure Container Registry (ACR)
+- Deployed to Azure Kubernetes Service (AKS)
+- Exposed through a Kubernetes LoadBalancer
+- Automated with a basic GitHub Actions CI pipeline
 
 ---
 
-## 🛠️ Tech Stack
+# 🛠️ Tech Stack
 
 - Python
 - Flask
 - Docker
-- Git
-- GitHub
+- Git & GitHub
+- GitHub Actions
 - Terraform
 - Microsoft Azure
-- Azure Resource Group
 - Azure Container Registry (ACR)
 - Azure Kubernetes Service (AKS)
 - Kubernetes
-- GitHub Actions (CI)
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
 ```text
 hello-aks-app/
 │
-├── app.py
-├── Dockerfile
-├── requirements.txt
-├── deployment.yaml
-├── service.yaml
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+│
 ├── terraform/
 │   ├── provider.tf
 │   ├── variables.tf
@@ -52,82 +56,90 @@ hello-aks-app/
 │   ├── acr.tf
 │   ├── aks.tf
 │   └── outputs.tf
-├── .github/
-│   └── workflows/
+│
+├── k8s/
+│   ├── deployment.yaml
+│   └── service.yaml
+│
+├── app.py
+├── Dockerfile
+├── requirements.txt
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 🚀 Running the Application Locally
+# 🚀 Run Locally
 
-### Clone the repository
+Clone the repository
 
 ```bash
 git clone https://github.com/farooqspecials/hello-aks-app.git
 cd hello-aks-app
 ```
 
-### Create a virtual environment
+Create a virtual environment
 
 ```bash
 python -m venv venv
 ```
 
-Windows:
+Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-### Install dependencies
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Run the application
+Run the application
 
 ```bash
 python app.py
 ```
 
-Visit:
+Open:
 
-```text
+```
 http://localhost:5000
 ```
 
 ---
 
-## 🐳 Docker
+# 🐳 Docker
 
-Build the image:
+Build the image
 
 ```bash
 docker build -t hello-aks-app:v1 .
 ```
 
-Run the container:
+Run the container
 
 ```bash
 docker run -d -p 5000:5000 hello-aks-app:v1
 ```
 
+Push to Docker Hub
+
+```bash
+docker tag hello-aks-app:v1 farooqspecials/hello-aks-app:latest
+
+docker push farooqspecials/hello-aks-app:latest
+```
+
 ---
 
-## ☁️ Azure Infrastructure
+# ☁️ Azure Infrastructure
 
-Infrastructure is provisioned using **Terraform**.
+Infrastructure is managed using Terraform.
 
-Currently provisioned resources:
-
-- Azure Resource Group
-- Azure Container Registry (ACR)
-- Azure Kubernetes Service (AKS)
-
-Provision infrastructure:
+Provision Azure resources
 
 ```bash
 cd terraform
@@ -137,101 +149,107 @@ terraform plan
 terraform apply
 ```
 
+Resources created:
+
+- ✅ Resource Group
+- ✅ Azure Container Registry (ACR)
+- ✅ Azure Kubernetes Service (AKS)
+
 ---
 
-## ☸️ Kubernetes Deployment
+# ☸️ Kubernetes
 
-The application is deployed to Azure Kubernetes Service using Kubernetes manifests.
-
-Deployment:
+Deploy the application
 
 ```bash
-kubectl apply -f deployment.yaml
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
 ```
 
-Service:
+Check deployment
 
 ```bash
-kubectl apply -f service.yaml
+kubectl get deployments
+kubectl get pods
+kubectl get services
 ```
 
-The application is accessible through an Azure LoadBalancer public IP.
+The application is exposed using a **LoadBalancer** service.
 
 ---
 
-## ⚙️ GitHub Actions
+# ⚙️ GitHub Actions
 
-This project is currently implementing a **Continuous Integration (CI)** pipeline using GitHub Actions.
+A CI workflow has been configured using GitHub Actions.
 
-Planned CI workflow:
+The workflow automatically:
 
-- Checkout repository
-- Set up Python
-- Install dependencies
-- Verify application
-- Build Docker image
-- (Optional) Push image to Docker Hub
-
-### Note
-
-The original plan was to automate deployment to Azure Container Registry (ACR) and Azure Kubernetes Service (AKS) using GitHub Actions.
-
-However, this project uses an **Azure for Students** subscription managed by a university Microsoft Entra ID tenant. Due to tenant-level security restrictions, creating the required Service Principal for GitHub authentication is not permitted.
-
-As a result:
-
-- ✅ Continuous Integration (CI) with GitHub Actions is being implemented.
-- ⏳ Continuous Deployment (CD) to Azure will be completed later using a personal Azure subscription or an environment with the required Microsoft Entra ID permissions.
+- Checks out the repository
+- Sets up Python
+- Installs project dependencies
+- Builds the Docker image
+- Pushes the Docker image to Docker Hub
 
 ---
 
-## 📚 Learning Objectives
+# ⚠️ Current Limitation
+
+The next planned step is to automate deployment to Azure using GitHub Actions.
+
+At the moment, this is blocked because the Azure for Students subscription is managed by the university tenant, which does not allow creating an Azure Service Principal required for GitHub Actions authentication.
+
+The current CI pipeline successfully automates Docker image builds and pushes to Docker Hub, while Azure deployment is performed manually.
+
+---
+
+# 📚 Learning Objectives
 
 This project demonstrates:
 
-- Python & Flask
+- Python Flask development
 - Docker containerization
-- Git & GitHub
+- Git & GitHub workflows
+- GitHub Actions CI
 - Infrastructure as Code with Terraform
 - Azure Resource Group provisioning
 - Azure Container Registry (ACR)
 - Azure Kubernetes Service (AKS)
-- Kubernetes Deployments & Services
-- GitHub Actions (Continuous Integration)
+- Kubernetes Deployments
+- Kubernetes Services
 
 ---
 
-## 📌 Current Progress
+# 📌 Current Progress
 
 - ✅ Flask Application
 - ✅ Dockerized Application
 - ✅ GitHub Repository
-- ✅ Terraform Configuration
+- ✅ Terraform Infrastructure
 - ✅ Azure Resource Group
-- ✅ Azure Container Registry (ACR)
+- ✅ Azure Container Registry
 - ✅ Docker Image pushed to ACR
-- ✅ Azure Kubernetes Service (AKS)
+- ✅ Docker Image pushed to Docker Hub
+- ✅ Azure Kubernetes Service
 - ✅ Kubernetes Deployment
 - ✅ Kubernetes Service (LoadBalancer)
-- ✅ Application running on Azure
-- 🚧 GitHub Actions (Continuous Integration)
-- ⏳ Automated Azure Deployment (Pending Azure authentication permissions)
+- ✅ GitHub Actions CI Pipeline
+- ⏳ GitHub Actions CD (Azure deployment pending authentication)
 
 ---
 
-## 🎯 Next Steps
+# 🚀 Future Improvements
 
-- Build a complete GitHub Actions CI pipeline
-- Automatically build Docker images
-- Learn GitHub Actions jobs, steps, runners, and secrets
-- Optionally publish Docker images to Docker Hub
-- Complete Azure deployment automation when Microsoft Entra ID permissions are available
-- Last updated: Testing GitHub Actions Docker Hub workflow.
+- Configure GitHub Actions CD for AKS deployment
+- Use Azure Workload Identity or OIDC authentication
+- Deploy using Helm charts
+- Add automated testing
+- Add monitoring with Azure Monitor / Prometheus
+- Add logging with Grafana
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
 **Farooq**
 
-This repository documents my DevOps learning journey as I build a cloud-native application and an end-to-end DevOps pipeline using modern tools including Docker, Terraform, Kubernetes, Azure, and GitHub Actions.
+This repository documents my hands-on DevOps learning journey. The project evolves step by step as I learn containerization, Infrastructure as Code, Kubernetes, cloud services, and CI/CD using modern DevOps practices.
