@@ -1,42 +1,84 @@
-# Hello AKS App 🚀
+# 🚀 Hello AKS App
 
-A simple Flask application built to learn a complete cloud-native DevOps pipeline using Docker, Terraform, Azure Container Registry (ACR), Azure Kubernetes Service (AKS), Kubernetes, and GitHub Actions.
+A cloud-native DevOps project built to learn Docker, Terraform, Microsoft Azure, Kubernetes, and GitHub Actions by deploying a Python Flask application to Azure Kubernetes Service (AKS).
 
 ---
 
-# 📖 Project Overview
+## 📖 Project Overview
 
-This project is part of my DevOps learning journey. The application is intentionally simple so I can focus on learning modern DevOps tools, Infrastructure as Code (Terraform), containerization, Kubernetes, Microsoft Azure, and CI/CD automation.
+This project documents my hands-on DevOps learning journey.
+
+Instead of focusing on a complex application, I built a simple Flask web application so I could concentrate on learning modern DevOps tools and cloud infrastructure.
+
+The project demonstrates how to:
+
+- Containerize an application using Docker
+- Provision Azure infrastructure using Terraform
+- Store container images in Azure Container Registry (ACR)
+- Deploy containers to Azure Kubernetes Service (AKS)
+- Automate image builds using GitHub Actions
+- Update Kubernetes deployments with new container images
 
 Current application output:
 
 ```text
-Hello from Azure Kubernetes!
+Hello from Farooq!
 ```
 
-The application has been successfully:
+---
 
-- Dockerized
-- Pushed to Docker Hub
-- Pushed to Azure Container Registry (ACR)
-- Deployed to Azure Kubernetes Service (AKS)
-- Exposed through a Kubernetes LoadBalancer
-- Automated with a basic GitHub Actions CI pipeline
+# 🏗️ Project Architecture
+
+```
+                Developer
+                    │
+                    ▼
+              GitHub Repository
+                    │
+          Git Push (master branch)
+                    │
+                    ▼
+             GitHub Actions CI
+                    │
+        ┌───────────┴───────────┐
+        │                       │
+        ▼                       ▼
+ Verify Flask App       Build Docker Image
+                                │
+                                ▼
+                Azure Container Registry (ACR)
+                                │
+                                ▼
+               Azure Kubernetes Service (AKS)
+                                │
+                                ▼
+                     Kubernetes Deployment
+                                │
+                                ▼
+                     Kubernetes Service
+                         (LoadBalancer)
+                                │
+                                ▼
+                           Web Browser
+```
 
 ---
 
 # 🛠️ Tech Stack
 
-- Python
-- Flask
-- Docker
-- Git & GitHub
-- GitHub Actions
-- Terraform
-- Microsoft Azure
-- Azure Container Registry (ACR)
-- Azure Kubernetes Service (AKS)
-- Kubernetes
+| Technology | Purpose |
+|------------|---------|
+| Python | Backend language |
+| Flask | Web framework |
+| Docker | Containerization |
+| Git | Version Control |
+| GitHub | Source Code Repository |
+| GitHub Actions | Continuous Integration |
+| Terraform | Infrastructure as Code |
+| Microsoft Azure | Cloud Platform |
+| Azure Container Registry | Container Registry |
+| Azure Kubernetes Service | Container Orchestration |
+| Kubernetes | Container Management |
 
 ---
 
@@ -44,6 +86,7 @@ The application has been successfully:
 
 ```text
 hello-aks-app/
+
 │
 ├── .github/
 │   └── workflows/
@@ -70,16 +113,19 @@ hello-aks-app/
 
 ---
 
-# 🚀 Run Locally
+# 🚀 Running Locally
 
-Clone the repository
+Clone repository
 
 ```bash
 git clone https://github.com/farooqspecials/hello-aks-app.git
+```
+
+```bash
 cd hello-aks-app
 ```
 
-Create a virtual environment
+Create virtual environment
 
 ```bash
 python -m venv venv
@@ -97,13 +143,13 @@ Install dependencies
 pip install -r requirements.txt
 ```
 
-Run the application
+Run Flask
 
 ```bash
 python app.py
 ```
 
-Open:
+Open browser
 
 ```
 http://localhost:5000
@@ -113,138 +159,353 @@ http://localhost:5000
 
 # 🐳 Docker
 
-Build the image
+## Build Image
 
 ```bash
 docker build -t hello-aks-app:v1 .
 ```
 
-Run the container
+## View Images
+
+```bash
+docker images
+```
+
+## Run Container
 
 ```bash
 docker run -d -p 5000:5000 hello-aks-app:v1
 ```
 
-Push to Docker Hub
+## Running Containers
 
 ```bash
-docker tag hello-aks-app:v1 farooqspecials/hello-aks-app:latest
+docker ps
+```
 
-docker push farooqspecials/hello-aks-app:latest
+## Stop Container
+
+```bash
+docker stop <container-id>
+```
+
+## Remove Container
+
+```bash
+docker rm <container-id>
+```
+
+## Remove Image
+
+```bash
+docker rmi hello-aks-app:v1
 ```
 
 ---
 
-# ☁️ Azure Infrastructure
+# ☁️ Terraform
 
 Infrastructure is managed using Terraform.
 
-Provision Azure resources
+Terraform provisions:
+
+- Azure Resource Group
+- Azure Container Registry
+- Azure Kubernetes Service
+
+Initialize Terraform
 
 ```bash
-cd terraform
-
 terraform init
+```
+
+Format files
+
+```bash
+terraform fmt
+```
+
+Validate
+
+```bash
+terraform validate
+```
+
+Preview changes
+
+```bash
 terraform plan
+```
+
+Provision Infrastructure
+
+```bash
 terraform apply
 ```
 
-Resources created:
+Destroy Infrastructure
 
-- ✅ Resource Group
-- ✅ Azure Container Registry (ACR)
-- ✅ Azure Kubernetes Service (AKS)
+```bash
+terraform destroy
+```
+
+---
+
+# ☁️ Azure
+
+Azure resources created:
+
+- Resource Group
+- Azure Container Registry (ACR)
+- Azure Kubernetes Service (AKS)
+
+Useful Azure CLI commands
+
+Login
+
+```bash
+az login
+```
+
+List Resource Groups
+
+```bash
+az group list
+```
+
+List ACR
+
+```bash
+az acr list
+```
+
+Show ACR Tags
+
+```bash
+az acr repository show-tags --name farooqhelloaksacr --repository hello-aks-app
+```
+
+Get AKS Credentials
+
+```bash
+az aks get-credentials --resource-group hello-aks-rg --name hello-aks-cluster
+```
 
 ---
 
 # ☸️ Kubernetes
 
-Deploy the application
+The application is deployed using Kubernetes Deployment and exposed using a LoadBalancer Service.
+
+Deploy application
 
 ```bash
 kubectl apply -f k8s/deployment.yaml
+```
+
+Deploy Service
+
+```bash
 kubectl apply -f k8s/service.yaml
 ```
 
-Check deployment
+View Deployments
 
 ```bash
 kubectl get deployments
-kubectl get pods
-kubectl get services
 ```
 
-The application is exposed using a **LoadBalancer** service.
+View Pods
+
+```bash
+kubectl get pods
+```
+
+View Services
+
+```bash
+kubectl get svc
+```
+
+Describe Deployment
+
+```bash
+kubectl describe deployment hello-aks-deployment
+```
+
+Describe Pod
+
+```bash
+kubectl describe pod <pod-name>
+```
+
+View Logs
+
+```bash
+kubectl logs <pod-name>
+```
+
+Access Container
+
+```bash
+kubectl exec -it <pod-name> -- sh
+```
+
+Restart Deployment
+
+```bash
+kubectl rollout restart deployment hello-aks-deployment
+```
+
+Watch Rollout
+
+```bash
+kubectl rollout status deployment hello-aks-deployment
+```
+
+The deployment uses
+
+```yaml
+imagePullPolicy: Always
+```
+
+to ensure Kubernetes always pulls the latest image from Azure Container Registry.
 
 ---
 
 # ⚙️ GitHub Actions
 
-A CI workflow has been configured using GitHub Actions.
+The CI pipeline automatically executes on every push to the **master** branch.
 
-The workflow automatically:
+Workflow:
 
-- Checks out the repository
-- Sets up Python
-- Installs project dependencies
-- Builds the Docker image
-- Pushes the Docker image to Docker Hub
+- Checkout repository
+- Setup Python
+- Install dependencies
+- Verify Flask application
+- Build Docker image
+- Login to Azure Container Registry
+- Push Docker image to Azure Container Registry
 
----
-
-# ⚠️ Current Limitation
-
-The next planned step is to automate deployment to Azure using GitHub Actions.
-
-At the moment, this is blocked because the Azure for Students subscription is managed by the university tenant, which does not allow creating an Azure Service Principal required for GitHub Actions authentication.
-
-The current CI pipeline successfully automates Docker image builds and pushes to Docker Hub, while Azure deployment is performed manually.
+This allows every code change to automatically generate a new container image.
 
 ---
 
-# 📚 Learning Objectives
+# 🔄 CI/CD Pipeline
 
-This project demonstrates:
+```
+Developer
 
-- Python Flask development
+↓
+
+Git Commit
+
+↓
+
+Git Push
+
+↓
+
+GitHub Actions
+
+↓
+
+Build Docker Image
+
+↓
+
+Push Image to Azure Container Registry
+
+↓
+
+Restart Kubernetes Deployment
+
+↓
+
+New Pod Created
+
+↓
+
+Updated Application
+```
+
+---
+
+# 📚 What I Learned
+
+This project helped me understand:
+
 - Docker containerization
-- Git & GitHub workflows
-- GitHub Actions CI
-- Infrastructure as Code with Terraform
-- Azure Resource Group provisioning
-- Azure Container Registry (ACR)
-- Azure Kubernetes Service (AKS)
-- Kubernetes Deployments
-- Kubernetes Services
+- Docker image lifecycle
+- Azure Resource Groups
+- Azure Container Registry
+- Azure Kubernetes Service
+- Infrastructure as Code using Terraform
+- GitHub Actions
+- Kubernetes Pods
+- Deployments
+- ReplicaSets
+- Services
+- Rolling Updates
+- Load Balancers
+- Container Registries
+- Cloud-native application deployment
+- CI/CD fundamentals
 
 ---
 
-# 📌 Current Progress
+# 📌 Project Status
 
-- ✅ Flask Application
-- ✅ Dockerized Application
-- ✅ GitHub Repository
-- ✅ Terraform Infrastructure
-- ✅ Azure Resource Group
-- ✅ Azure Container Registry
-- ✅ Docker Image pushed to ACR
-- ✅ Docker Image pushed to Docker Hub
-- ✅ Azure Kubernetes Service
-- ✅ Kubernetes Deployment
-- ✅ Kubernetes Service (LoadBalancer)
-- ✅ GitHub Actions CI Pipeline
-- ⏳ GitHub Actions CD (Azure deployment pending authentication)
+| Feature | Status |
+|---------|--------|
+| Flask Application | ✅ |
+| Dockerized | ✅ |
+| GitHub Repository | ✅ |
+| Terraform | ✅ |
+| Azure Resource Group | ✅ |
+| Azure Container Registry | ✅ |
+| Azure Kubernetes Service | ✅ |
+| Kubernetes Deployment | ✅ |
+| Kubernetes LoadBalancer | ✅ |
+| GitHub Actions | ✅ |
+| Automatic Docker Build | ✅ |
+| Automatic Push to ACR | ✅ |
+| Rolling Updates | ✅ |
+| Automatic AKS Deployment | 🔄 In Progress |
+
+---
+
+# 🛠️ Challenges Faced
+
+During this project I solved several real-world DevOps issues:
+
+- GitHub Actions authentication
+- Azure Student Subscription limitations
+- Docker login failures
+- Azure Container Registry authentication
+- Kubernetes image caching
+- `imagePullPolicy`
+- Deployment rollouts
+- ReplicaSet updates
+- Git staging mistakes
+- Troubleshooting Pods using `kubectl describe`
+- Inspecting containers using `kubectl exec`
+
+These challenges helped me better understand how cloud-native deployments work in practice.
 
 ---
 
 # 🚀 Future Improvements
 
-- Configure GitHub Actions CD for AKS deployment
-- Use Azure Workload Identity or OIDC authentication
-- Deploy using Helm charts
+- Automate Kubernetes deployment directly from GitHub Actions
+- Use Azure OIDC authentication
+- Deploy using Helm Charts
+- Version Docker images using Git commit SHA
 - Add automated testing
-- Add monitoring with Azure Monitor / Prometheus
-- Add logging with Grafana
+- Add Prometheus monitoring
+- Add Grafana dashboards
+- Add Azure Monitor
+- Build a complete Employee Management System using microservices
 
 ---
 
@@ -252,4 +513,8 @@ This project demonstrates:
 
 **Farooq**
 
-This repository documents my hands-on DevOps learning journey. The project evolves step by step as I learn containerization, Infrastructure as Code, Kubernetes, cloud services, and CI/CD using modern DevOps practices.
+This repository documents my hands-on DevOps learning journey. The project demonstrates containerization, Infrastructure as Code, cloud infrastructure provisioning, Kubernetes orchestration, and CI/CD automation using Microsoft Azure and modern DevOps tools.
+
+---
+
+## ⭐ If you found this project helpful, feel free to star the repository!
