@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: hello-aks-container
-        image: farooqhelloaksacr.azurecr.io/hello-aks-app:v1
+        image: farooqhelloaksacr.azurecr.io/hello-aks-app:latest
 
         ports:
         - containerPort: 5000
