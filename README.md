@@ -1,4 +1,4 @@
-# 🚀 Hello AKS App
+# 🚀 Hello AKS Application
 
 A cloud-native DevOps project built to learn Docker, Terraform, Microsoft Azure, Kubernetes, and GitHub Actions by deploying a Python Flask application to Azure Kubernetes Service (AKS).
 
